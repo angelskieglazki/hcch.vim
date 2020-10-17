@@ -1,6 +1,6 @@
 # hcch.vim
 ## overview
-Vim plugin for creating header/source pair for c/c++ languges
+Vim plugin for creating header/source pair for c/c++ languages
 ## install
 * [vim-plug](https://github.com/junegunn/vim-plug)
   * `Plug 'angelskieglazki/hcch.vim'`
