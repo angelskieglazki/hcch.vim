@@ -1,10 +1,10 @@
-echo "It's worked!666"
-
 let s:END_LINE = "\n"
 let s:STAR = " * "
 let s:FILE_S = '\file '
 let s:AUTHOR_S = '\author '
 let s:DATE_S = 'Create on '
+let s:C_SOURCE = 'c'
+let s:CPP_SOURCE = 'cpp'
 
 function! GetDate(format)
   let format = empty(a:format) ? '+%a %Y-%m-%d %H:%M UTC' : a:format
@@ -44,6 +44,20 @@ function! ForHeader(sourceName)
 endfunction
 
 function! Hcch(value1, value2)
+    if a:value2 == s:C_SOURCE
+	echom "c source"
+    elseif a:value2 == s:CPP_SOURCE
+	echom "cpp source"
+    else
+	echom "type of file undefined"
+	return
+    endif
+
+    if filereadable(a:value1.".h")
+        echo a:value1.".h"." exists"
+	return
+    endif
+
     execute "tabnew"
 
     execute "e " .  a:value1 . ".h"
