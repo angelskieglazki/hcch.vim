@@ -5,6 +5,7 @@ let s:AUTHOR_S = '\author '
 let s:DATE_S = 'Create on '
 let s:C_SOURCE = 'c'
 let s:CPP_SOURCE = 'cpp'
+let s:H_HEADER = 'h'
 
 function! GetDate(format)
   let format = empty(a:format) ? '+%a %Y-%m-%d %H:%M UTC' : a:format
@@ -68,8 +69,20 @@ function! Hcch(value1, value2)
     execute "e " .  a:value1 . "." . a:value2
     call ForSource(a:value1, a:value2)
     execute ":w"
+endfunction
 
+function! Hcch_Header(value)
+    if filereadable(a:value.".h")
+        echo a:value.".h"." exists"
+	return
+    endif
+
+    execute "tabnew"
+
+    execute "e " .  a:value . ".h"
+    call ForHeader(a:value)
+    execute ":w"
 endfunction
 
 command! -nargs=* CreateSource call Hcch(<f-args>)
-
+command! -nargs=* CreateHeaderOnly call Hcch_Header(<f-args>)
